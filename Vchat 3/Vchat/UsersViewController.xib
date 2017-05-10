@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="UsersViewController" customModule="XMPP" customModuleProvider="target">
+            <connections>
+                <outlet property="accountNameLabel" destination="8hk-K8-Goz" id="5bN-JL-pPR"/>
+                <outlet property="usersTableView" destination="B9e-cc-dcj" id="WGr-mg-oet"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wOt-ic-0Wb" userLabel="UserInfoView">
+                    <rect key="frame" x="0.0" y="19" width="320" height="43"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Vchat" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dfA-eE-rZs">
+                            <rect key="frame" x="51" y="2" width="54" height="21"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bhavna" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8hk-K8-Goz">
+                            <rect key="frame" x="51" y="21" width="135" height="17"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8xw-Rk-Els">
+                            <rect key="frame" x="265" y="5" width="48" height="30"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="48" id="ZTr-Km-huB"/>
+                            </constraints>
+                            <state key="normal" title="Logout">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="logoutActionButton:" destination="-1" eventType="touchUpInside" id="D25-70-f60"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" red="0.066666666666666666" green="0.52549019607843139" blue="0.75294117647058822" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="8xw-Rk-Els" secondAttribute="trailing" constant="7" id="1ty-Lt-e9h"/>
+                        <constraint firstItem="dfA-eE-rZs" firstAttribute="leading" secondItem="wOt-ic-0Wb" secondAttribute="leading" constant="51" id="7yy-lX-8gQ"/>
+                        <constraint firstItem="8xw-Rk-Els" firstAttribute="leading" secondItem="dfA-eE-rZs" secondAttribute="trailing" constant="160" id="90f-MZ-Lgp"/>
+                        <constraint firstItem="dfA-eE-rZs" firstAttribute="top" secondItem="wOt-ic-0Wb" secondAttribute="top" constant="2" id="FZf-fp-G0i"/>
+                        <constraint firstItem="8xw-Rk-Els" firstAttribute="top" secondItem="wOt-ic-0Wb" secondAttribute="top" constant="5" id="HXQ-C3-NlP"/>
+                        <constraint firstItem="8hk-K8-Goz" firstAttribute="leading" secondItem="wOt-ic-0Wb" secondAttribute="leading" constant="51" id="NhI-5o-1KC"/>
+                        <constraint firstItem="8xw-Rk-Els" firstAttribute="leading" secondItem="8hk-K8-Goz" secondAttribute="trailing" constant="79" id="bxM-a1-Gy6"/>
+                        <constraint firstItem="8hk-K8-Goz" firstAttribute="top" secondItem="dfA-eE-rZs" secondAttribute="bottom" constant="-2" id="w6a-Yt-u2Z"/>
+                    </constraints>
+                </view>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="B9e-cc-dcj">
+                    <rect key="frame" x="0.0" y="61" width="320" height="507"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="x9M-AH-EJ7"/>
+                        <outlet property="delegate" destination="-1" id="Pvs-RO-PSS"/>
+                    </connections>
+                </tableView>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="B9e-cc-dcj" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="61" id="FkA-KW-B2K"/>
+                <constraint firstAttribute="trailing" secondItem="wOt-ic-0Wb" secondAttribute="trailing" id="QST-dx-5dE"/>
+                <constraint firstItem="B9e-cc-dcj" firstAttribute="top" secondItem="wOt-ic-0Wb" secondAttribute="bottom" constant="-1" id="T8W-bu-gEm"/>
+                <constraint firstAttribute="trailing" secondItem="B9e-cc-dcj" secondAttribute="trailing" id="XUq-Os-aGa"/>
+                <constraint firstItem="wOt-ic-0Wb" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="19" id="eQK-dy-YFy"/>
+                <constraint firstItem="wOt-ic-0Wb" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="gOr-aA-P6Z"/>
+                <constraint firstAttribute="bottom" secondItem="B9e-cc-dcj" secondAttribute="bottom" id="gjY-38-bul"/>
+                <constraint firstItem="B9e-cc-dcj" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="jSV-tm-FTR"/>
+            </constraints>
+            <point key="canvasLocation" x="-29" y="194"/>
+        </view>
+    </objects>
+</document>

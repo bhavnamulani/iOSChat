@@ -1,0 +1,6 @@
+framework module Pods_VchatUITests {
+  umbrella header "Pods-VchatUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}
