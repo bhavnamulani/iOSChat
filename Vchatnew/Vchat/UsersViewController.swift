@@ -18,7 +18,7 @@ class UsersViewController: BaseViewController {
     @IBAction func logoutActionButton(_ sender: AnyObject) {
         xmppManager.xmppStream.removeDelegate(self)
         xmppManager.xmppStream.disconnect()
-//         xmppManager.destroy()
+        //xmppManager.destroy()
         SharedPref().clearSharedPref()
         self.dismiss(animated: true, completion: nil)
         
@@ -26,6 +26,10 @@ class UsersViewController: BaseViewController {
     
     let identifier = "userCell"
     var username:String = ""
+    var name:String = ""
+    var email:String = ""
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,10 +45,10 @@ class UsersViewController: BaseViewController {
         userServiceModel!.setAPICallback(self)
         //this will disable navigation bar from controller when view will appear
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
-            self.username = SharedPref().get("username") as! String
-            print("self.username",self.username)
-            accountNameLabel.text = self.username
-            usersTableView.reloadData()
+        self.username = SharedPref().get("username") as! String
+        print("self.username",self.username)
+        accountNameLabel.text = self.username
+        usersTableView.reloadData()
     }
     
     
@@ -66,6 +70,7 @@ class UsersViewController: BaseViewController {
         switch requestId {
         case RequestConstants.REQUEST_FOR_LOGIN:
             self.usersTableView.reloadData()
+           // userDo = try! getUsersFromTable()
             break;
         case RequestConstants.REQUEST_FOR_SIGNUP:
             break;
@@ -90,6 +95,7 @@ class UsersViewController: BaseViewController {
         
         //setting name label of custom cell
         let opponentName = userDo[indexPath.row].name
+     
         cell.usersNameLabel?.text = opponentName
         
         return cell
@@ -102,6 +108,7 @@ class UsersViewController: BaseViewController {
         let cell = self.usersTableView.cellForRow(at: indexPath) as! UsersTableViewCell
         let userName = cell.usersNameLabel.text
         let lGChatController = LGChatController()
+        lGChatController.selfUserDo = userDo[indexPath.row];
         lGChatController.title = userName
         NSLog("did select and the text is \(String(describing: cell.usersNameLabel!.text))")
         self.navigationController?.pushViewController(lGChatController, animated: true)
@@ -114,5 +121,5 @@ class UsersViewController: BaseViewController {
         return UITableViewAutomaticDimension
     }
     
-  
+    
 }

@@ -114,7 +114,9 @@ class LGChatInput: UIView, LGStretchyTextViewDelegate {
         textView.layer.borderWidth = 1.0
         textView.layer.borderColor = UIColor(white: 0.0, alpha: 0.2).cgColor
     }
-    //creading send button programaticly
+    
+    
+    //creating send button programaticly
     func setupSendButton() {
         self.sendButton.isEnabled = false
         //Setting Title of send message button

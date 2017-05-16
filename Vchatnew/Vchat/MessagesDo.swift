@@ -11,7 +11,7 @@ import UIKit
 class MessagesDo {
     
     var msgText: String?
-    var sender: String?
+//  var sender: String?
     var sentBy = LGChatMessage.SentBy.Opponent
     var fromUser: String?
     var toUser:String?

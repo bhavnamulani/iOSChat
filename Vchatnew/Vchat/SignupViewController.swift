@@ -30,6 +30,12 @@ class SignupViewController: BaseViewController {
         
         if validateSignup(name, username: username, password: password, email: email){
             let params = ["name":name, "username":username, "password":password, "email":email]
+            SharedPref().clearSharedPref()
+            SharedPref().put("name", value:name as AnyObject )
+            var usersDo: UsersDo?
+            usersDo?.name = name
+            usersDo?.email = email
+            SharedPref().put("email", value:email as AnyObject )
             let usersServiceModel = UserServiceModel(apiCallback: self)
             usersServiceModel.signup(name, username:username, password:password, email:email, json:params as [String : AnyObject])
             //self.navigationController?.popViewController(animated: true)

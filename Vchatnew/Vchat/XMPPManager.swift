@@ -236,26 +236,35 @@ class XMPPManager: NSObject,XMPPStreamDelegate {
      */
     func addIncomingMessages(sender:XMPPStream!,messageText:String) {
         
+        let senderId = String(describing : sender) as AnyObject
+        print("SenderID" , senderId)
         var messagesDo:MessagesDo?
         messagesDo = MessagesDo()
         messagesDo?.msgText = messageText
         messagesDo?.sentBy = .Opponent
-        
+        messagesDo?.fromUser = senderId as? String
+        messagesDo?.toUser = SharedPref().get("username") as? String
+         messagesDo?.read = false
         chatMessages.append(messagesDo!)
         print(chatMessages)
         xMPPMessageCallback?.onXMPPMessageResponse("Opponent", message: messageText)
-        try! insertIntoMsgTable(messagesDo: messagesDo!)
+        try!insertIntoMsgTable(messagesDo: messagesDo!)
     }
+    
     /**
      * On message sent
      */
     func addOutgoingMessages(sender:XMPPStream!,messageText:String) {
-        
+        let senderId = String(describing : sender) as AnyObject
+        print("SenderID" , senderId)
         var messagesDo:MessagesDo?
         messagesDo = MessagesDo()
         messagesDo?.msgText = messageText
         messagesDo?.sentBy = .User
-        
+        messagesDo?.fromUser = senderId as? String
+        messagesDo?.toUser = SharedPref().get("username") as? String
+        messagesDo?.read = true
+
         chatMessages.append(messagesDo!)
         print(chatMessages)
         xMPPMessageCallback?.onXMPPMessageResponse("User", message: messageText)

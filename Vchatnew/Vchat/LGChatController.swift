@@ -22,7 +22,7 @@ class LGChatController: BaseViewController, UITableViewDelegate, UITableViewData
     
     // MARK: Constants
     
-     struct Constants {
+    struct Constants {
         static let MessagesSection: Int = 0;
         static let MessageCellIdentifier: String = "LGChatController.Constants.MessageCellIdentifier"
     }
@@ -38,10 +38,12 @@ class LGChatController: BaseViewController, UITableViewDelegate, UITableViewData
     
     // MARK: Private Properties
     
-     let sizingCell = LGChatMessageCell()
-     let tableView: UITableView = UITableView()
-     let chatInput = LGChatInput(frame: CGRect.zero)
-     var bottomChatInputConstraint: NSLayoutConstraint!
+    let sizingCell = LGChatMessageCell()
+    let tableView: UITableView = UITableView()
+    let chatInput = LGChatInput(frame: CGRect.zero)
+    var bottomChatInputConstraint: NSLayoutConstraint!
+    
+    var selfUserDo: UsersDo!;
     
     
     // MARK: Life Cycle
@@ -49,6 +51,7 @@ class LGChatController: BaseViewController, UITableViewDelegate, UITableViewData
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setup()
+        refreshMessagesList()
         //self.launchChatController()
     }
     
@@ -83,6 +86,7 @@ class LGChatController: BaseViewController, UITableViewDelegate, UITableViewData
     func addNewMessage(_ message: LGChatMessage) {
         messages += [message]
         tableView.reloadData()
+        //try! getMessagesFromTable()
         self.scrollToBottom()
         self.delegate = self
         self.delegate?.chatController?(self, didAddNewMessage: message)
@@ -94,14 +98,14 @@ class LGChatController: BaseViewController, UITableViewDelegate, UITableViewData
         //xmppManager.sendMessage(self.title!, message:message.content)
     }
     
-//    func shouldChatController(_ chatController: LGChatController, addMessage message: LGChatMessage) -> Bool {
-//        /*
-//         Use this space to prevent sending a message, or to alter a message.  For example, you might want to hold a message until its successfully uploaded to a server.
-//         */
-//        message.sentByString = senderFlag == 0 ? LGChatMessage.SentByOpponentString() : LGChatMessage.SentByUserString()
-//        //message.sentByString = arc4random_uniform(2) == 0 ? [LGChatMessage SentByOpponentString] : [LGChatMessage SentByUserString];
-//        return true
-//    }
+    //    func shouldChatController(_ chatController: LGChatController, addMessage message: LGChatMessage) -> Bool {
+    //        /*
+    //         Use this space to prevent sending a message, or to alter a message.  For example, you might want to hold a message until its successfully uploaded to a server.
+    //         */
+    //        message.sentByString = senderFlag == 0 ? LGChatMessage.SentByOpponentString() : LGChatMessage.SentByUserString()
+    //        //message.sentByString = arc4random_uniform(2) == 0 ? [LGChatMessage SentByOpponentString] : [LGChatMessage SentByUserString];
+    //        return true
+    //    }
     
     // MARK: SwiftChatInputDelegate
     
@@ -112,16 +116,6 @@ class LGChatController: BaseViewController, UITableViewDelegate, UITableViewData
     func chatInput(_ chatInput: LGChatInput, didSendMessage message: String) {
         
         xmppManager.sendMessage(self.title!, message:message)
-//        let newMessage = LGChatMessage(content: message, sentBy:.User)
-//        
-//        var shouldSendMessage = true
-//        if let value = self.delegate?.shouldChatController?(self, addMessage: newMessage) {
-//            shouldSendMessage = value
-//        }
-//        
-//        if shouldSendMessage {
-//            self.addNewMessage(newMessage)
-//        }
     }
     
     override func onXMPPMessageResponse(_ senderUserName:String,message:String){
@@ -144,11 +138,12 @@ class LGChatController: BaseViewController, UITableViewDelegate, UITableViewData
         
         if shouldSendMessage {
             self.addNewMessage(newMessage)
+            
         }
-
+        
         
     }
-    //*************************************************************
+    
     
     // MARK: UITableViewDelegate
     
@@ -289,5 +284,16 @@ class LGChatController: BaseViewController, UITableViewDelegate, UITableViewData
             let lastIndexPath = IndexPath(row: lastItemIdx, section: Constants.MessagesSection)
             self.tableView.scrollToRow(at: lastIndexPath, at: .bottom, animated: false)
         }
+    }
+    
+    
+    func refreshMessagesList(){
+        try! messages = getMessagesFromTable(userID: self.selfUserDo.name!)
+        
+        if(messages != nil)
+        {
+            tableView.reloadData();
+        }
+        
     }
 }

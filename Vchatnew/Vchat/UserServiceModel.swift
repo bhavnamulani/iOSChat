@@ -20,7 +20,9 @@ class UserServiceModel: BaseServiceModel {
     {
         self.apiCallback=apiCallback;
     }
+    
 //*******************xMPPMessageCallback*******************************
+    
     init(xMPPMessageCallback:XMPPMessageCallback) {
         super.init();
         self.xMPPMessageCallback=xMPPMessageCallback;
@@ -59,6 +61,7 @@ class UserServiceModel: BaseServiceModel {
         break;
             
         case RequestConstants.REQUEST_FOR_LOGIN:onSigninResponse(isSuccess, result: result, errorString: errorString)
+        try! insertIntoUserTable(usersDoList: userDo)
         break;
             
         default:
@@ -98,15 +101,20 @@ class UserServiceModel: BaseServiceModel {
                 let objs = array?["user"] as? [[String : AnyObject]]
                 //let objs = result!["user"]as!NSArray
                 let username = SharedPref().get("username")
+             
+                
                 //print("User name: ",username as! [AnyObject])
                 
-                for opponent in objs! {
+                for opponent in objs! {0
                     //  print(opponent["username"])
                     
                     if opponent["username"] as? String != username as? String{
                         userDo.append(UsersDo(json: opponent as NSDictionary))
                     }
+                    
+                    
                 }
+                
                 self.apiCallback!.onAPIResponse(RequestConstants.REQUEST_FOR_LOGIN, isSuccess: true, responseObject: "" as AnyObject, errorString: errorString)
                 print("Success !!!")
                 
